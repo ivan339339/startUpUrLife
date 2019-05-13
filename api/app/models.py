@@ -21,12 +21,12 @@ class Customer(models.Model):
     PortfolioID = models.PositiveIntegerField()
 
 class CVID(models.Model):
-   CVID = models.AutoField(primary_key=true)
+   CVID = models.AutoField(primary_key=True)
    ## Other
    CustomerID = models.ForeignKey(Customer, on_delete=models.CASCADE)
 
 class Appointement(models.Model):
-    AppointementID = models.AutoField(primary_key=true)
+    AppointementID = models.AutoField(primary_key=True)
     TimeOfAppointement = models.DateTimeField()
     PlaceOfAppointement = models.TextField()
     Comment = models.TextField()
@@ -34,19 +34,19 @@ class Appointement(models.Model):
     CustomerID = models.ForeignKey(Customer, on_delete=models.CASCADE)
 
 class Portfolio(models.Model):
-    PortfolioID = models.AutoField(primary_key=true)
+    PortfolioID = models.AutoField(primary_key=True)
     ## Othert
     CustomerID = models.ForeignKey(Customer, on_delete=models.CASCADE)
 
 class Goal(models.Model):
-    GoalID = models.AutoField(primary_key=true)
+    GoalID = models.AutoField(primary_key=True)
     Deadline = models.DateField()
     Text = models.TextField()
     Status = models.TextField()
     CustomerID = models.ForeignKey(Customer, on_delete=models.CASCADE)
 
 class QuestionTip(models.Model):
-    QuestionID = models.AutoField(primary_key=true)
+    QuestionID = models.AutoField(primary_key=True)
     Text = models.TextField()
     IsAnonymous = models.BinaryField()
     Status = models.TextField()
@@ -54,7 +54,7 @@ class QuestionTip(models.Model):
     CustomerID = models.ForeignKey(Customer, on_delete=models.CASCADE)
 
 class Answer(models.Model):
-    AnswerID = models.AutoField(primary_key=true)
+    AnswerID = models.AutoField(primary_key=True)
     Text = models.TextField()
     Status = models.TextField()
     Time = models.DateTimeField()
@@ -62,7 +62,7 @@ class Answer(models.Model):
     AdminID = models.ForeignKey(Admin, on_delete=models.CASCADE)
 
 class Faq(models.Model):
-    QandAID = models.AutoField(primary_key=true)
+    QandAID = models.AutoField(primary_key=True)
     QuestionText = models.TextField()
     AnswerText = models.TextField()
 
