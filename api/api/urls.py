@@ -24,5 +24,5 @@ v1_api.register(UserByIdResource())
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^api/', include(v1_api.urls), name='User_by_ID')
+    path('api/', include(v1_api.urls))
 ]

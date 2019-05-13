@@ -1,9 +1,9 @@
-from tastypie.resources import ModelResource
+from tastypie.resources import ModelResource, ALL
 
 from app.models import *
 
 class UserByIdResource(ModelResource):
     class Meta:
         queryset = User.objects.all()
-        resource_name = 'user/'
+        resource_name = 'user'
         list_allowed_methods = ['get']
