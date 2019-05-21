@@ -21,6 +21,9 @@ from app.resources import *
 
 v1_api = Api(api_name='v1')
 v1_api.register(UserByIdResource())
+v1_api.register(PortfolioByIdResource())
+v1_api.register(GoalByIdResource())
+v1_api.register(AppointementsByUserIdResource())
 
 urlpatterns = [
     path('admin/', admin.site.urls),
