@@ -1,4 +1,5 @@
 from django.db import models
+import json
 
 class User(models.Model):
     UserID = models.AutoField(primary_key=True)
@@ -26,8 +27,15 @@ class Appointement(models.Model):
 
 class Portfolio(models.Model):
     PortfolioID = models.AutoField(primary_key=True)
-    ## Othert
+    Subjects = models.TextField()
+    FilledSubjects = models.PositiveIntegerField(default=3)
     UserID = models.ForeignKey(User, default=1, on_delete=models.CASCADE)
+
+    def set(self, data):
+        self.Subjects = json.dumps(data)
+
+    def get(self):
+        return json.loads(self.Subjects)
 
 class Goal(models.Model):
     GoalID = models.AutoField(primary_key=True)
