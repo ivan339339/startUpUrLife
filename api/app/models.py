@@ -31,12 +31,6 @@ class Portfolio(models.Model):
     FilledSubjects = models.PositiveIntegerField(default=3)
     UserID = models.ForeignKey(User, default=1, on_delete=models.CASCADE)
 
-    def set(self, data):
-        self.Subjects = json.dumps(data)
-
-    def get(self):
-        return json.loads(self.Subjects)
-
 class Goal(models.Model):
     GoalID = models.AutoField(primary_key=True)
     Deadline = models.DateField()
