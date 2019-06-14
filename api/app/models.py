@@ -5,25 +5,16 @@ class User(models.Model):
     Login = models.CharField(max_length=30)
     Password = models.CharField(max_length=30)
     RegistrationDate = models.DateField()
-
-class Admin(models.Model):
-    AdminID = models.ForeignKey(User, on_delete=models.CASCADE)
-    Name = models.CharField(max_length=30)
-    Role = models.CharField(max_length=30) ## As long as we dont have roles
-
-class Customer(models.Model):
-    CustomerID = models.ForeignKey(User, on_delete=models.CASCADE)
-    FirstName = models.CharField(max_length=30)
-    LastName = models.CharField(max_length=30)
     Adress = models.TextField()
     Residence = models.TextField()
     CVID = models.PositiveIntegerField()
     PortfolioID = models.PositiveIntegerField()
+    Is_admin = models.BooleanField(default=False)
 
 class CVID(models.Model):
-   CVID = models.AutoField(primary_key=True)
-   ## Other
-   CustomerID = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    CVID = models.AutoField(primary_key=True)
+    ## Other
+    UserID = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class Appointement(models.Model):
     AppointementID = models.AutoField(primary_key=True)
@@ -31,19 +22,19 @@ class Appointement(models.Model):
     PlaceOfAppointement = models.TextField()
     Comment = models.TextField()
     Status = models.TextField() ## Gonna be something else I suppose
-    CustomerID = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    UserID = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class Portfolio(models.Model):
     PortfolioID = models.AutoField(primary_key=True)
     ## Othert
-    CustomerID = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    UserID = models.ForeignKey(User, default=1, on_delete=models.CASCADE)
 
 class Goal(models.Model):
     GoalID = models.AutoField(primary_key=True)
     Deadline = models.DateField()
     Text = models.TextField()
     Status = models.TextField()
-    CustomerID = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    UserID = models.ForeignKey(User, default=1, on_delete=models.CASCADE)
 
 class QuestionTip(models.Model):
     QuestionID = models.AutoField(primary_key=True)
@@ -51,15 +42,15 @@ class QuestionTip(models.Model):
     IsAnonymous = models.BinaryField()
     Status = models.TextField()
     Time = models.DateTimeField()
-    CustomerID = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    UserID = models.ForeignKey(User, default=1, on_delete=models.CASCADE)
 
 class Answer(models.Model):
     AnswerID = models.AutoField(primary_key=True)
     Text = models.TextField()
     Status = models.TextField()
     Time = models.DateTimeField()
-    QuestionID = models.ForeignKey(QuestionTip, on_delete=models.CASCADE)
-    AdminID = models.ForeignKey(Admin, on_delete=models.CASCADE)
+    QuestionID = models.ForeignKey(QuestionTip, default=1, on_delete=models.CASCADE)
+    UserID = models.ForeignKey(User, default=1, on_delete=models.CASCADE)
 
 class Faq(models.Model):
     QandAID = models.AutoField(primary_key=True)
