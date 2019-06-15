@@ -14,6 +14,9 @@ class UserByIdResource(ModelResource):
             'Password' : ALL
         }
         authorization = Authorization()
+        def dehydrate(self, bundle):
+            if len(bundle['objects']) == 0:
+                bundle['error'] = 'AttributeError: not users found with this login-password.'
 
 class PortfolioByIdResource(ModelResource):
     class Meta:
