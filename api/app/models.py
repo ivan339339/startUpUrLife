@@ -4,6 +4,7 @@ import json
 class User(models.Model):
     UserID = models.AutoField(primary_key=True)
     Login = models.CharField(max_length=30)
+    Full_name = models.TextField()
     Password = models.CharField(max_length=30)
     RegistrationDate = models.DateField()
     Adress = models.TextField()
