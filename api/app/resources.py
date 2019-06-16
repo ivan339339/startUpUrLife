@@ -8,10 +8,14 @@ from app.models import *
 class UserByIdResource(ModelResource):
     def get_list(self, request, **kwargs):
         resp = super(UserByIdResource, self).get_list(request, **kwargs)
-        data = json.loads(resp.content)
-        if len(data['objects']) == 0:
-            data['errors'] = 'AttributeError - no such user with this login-password.'
-        data = json.dumps(data)
+
+        data = resp.content
+
+        if not isinstance(resp.content, bytes):
+            if len(data['objects']) == 0:
+                data['errors'] = 'AttributeError - no such user with this login-password.'
+            data = json.dumps(data)
+
         return HttpResponse(data, content_type='application/json', status=200)
 
     class Meta:
