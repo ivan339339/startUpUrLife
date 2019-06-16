@@ -27,6 +27,7 @@ class UserByIdResource(ModelResource):
             'Login' : ALL,
             'Password' : ALL
         }
+        authorization = Authorization()
 
 
 class PortfolioByIdResource(ModelResource):
