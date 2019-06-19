@@ -4,14 +4,14 @@ import json
 class User(models.Model):
     UserID = models.AutoField(primary_key=True)
     Login = models.CharField(max_length=30)
-    Full_name = models.TextField()
+    FullName = models.TextField()
     Password = models.CharField(max_length=30)
     RegistrationDate = models.DateField()
     Adress = models.TextField()
     Residence = models.TextField()
-    CVID = models.PositiveIntegerField()
-    PortfolioID = models.PositiveIntegerField()
-    Is_admin = models.BooleanField(default=False)
+    CVID = models.PositiveIntegerField(null=True)
+    PortfolioID = models.PositiveIntegerField(null=True)
+    IsAdmin = models.BooleanField(default=False)
 
 class CVID(models.Model):
     CVID = models.AutoField(primary_key=True)
