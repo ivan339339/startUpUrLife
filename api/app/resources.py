@@ -59,13 +59,13 @@ class PortfolioByIdResource(ModelResource):
 class GoalByIdResource(ModelResource):
     class Meta:
         queryset = Goal.objects.all()
-        resource_name = 'goal'
+        resource_name = 'goals'
         allowed_methods = ['get', 'post', 'put']
         authorization = Authorization()
 
 class AppointementsByUserIdResource(ModelResource):
     class Meta:
         queryset = Appointement.objects.all()
-        resource_name = 'appointment'
+        resource_name = 'appointments'
         allowed_methods = ['get', 'post', 'put']
         authorization = Authorization()
