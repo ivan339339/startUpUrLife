@@ -20,8 +20,8 @@ class CVID(models.Model):
 
 class Appointement(models.Model):
     AppointementID = models.AutoField(primary_key=True)
-    TimeOfAppointement = models.DateTimeField()
-    PlaceOfAppointement = models.TextField()
+    Time = models.DateTimeField()
+    Place = models.TextField()
     Comment = models.TextField()
     Status = models.TextField() ## Gonna be something else I suppose
     UserID = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -35,7 +35,7 @@ class Portfolio(models.Model):
 class Goal(models.Model):
     GoalID = models.AutoField(primary_key=True)
     Deadline = models.DateField()
-    Text = models.TextField()
+    Description = models.TextField()
     Status = models.TextField()
     UserID = models.ForeignKey(User, default=1, on_delete=models.CASCADE)
 
