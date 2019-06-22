@@ -36,7 +36,7 @@ class UserAuth(ModelResource):
         if user is None:
             data = {'error': 'AttributeError - no user found with this login-password'}
             data = json.dumps(data)
-            return self.create_response(request, data)
+            return self.create_response(request, data, status=404)
         else:
             data = model_to_dict(user)
             data = json.dumps(data, default=str)
