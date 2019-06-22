@@ -41,7 +41,7 @@ class UserAuth(ModelResource):
         queryset = User.objects.all()
         resource_name = 'users/auth'
         excludes = ['Password']
-        allowed_methods = ['put']
+        allowed_methods = ['post']
         filtering = {
             'Login' : ALL,
             'Password' : ALL
