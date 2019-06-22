@@ -1,6 +1,6 @@
 from tastypie.resources import ModelResource, ALL
 from tastypie.authorization import Authorization
-from django.http import HttpResponse
+from django.forms.models import model_to_dict
 from datetime import date
 
 
@@ -15,7 +15,6 @@ class UserByIdResource(ModelResource):
     class Meta:
         queryset = User.objects.all()
         resource_name = 'users'
-        excludes = ['Password']
         allowed_methods = ['get', 'post', 'put']
         authorization = Authorization()
 
@@ -25,27 +24,28 @@ class UserByIdResource(ModelResource):
             return bundle
 
 class UserAuth(ModelResource):
-    def get_list(self, request, **kwargs):
-        resp = super(UserAuth, self).get_list(request, **kwargs)
+    def post_list(self, request, **kwargs):
+        self.method_check(request, allowed=['post'])
+        data = self.deserialize(request, request.body, format=request.META.get('CONTENT_TYPE', 'application/json'))
 
-        data = resp.content
+        login = data.get('Login', '')
+        password = data.get('Password', '')
 
-        if not isinstance(resp.content, bytes):
-            if len(data['objects']) == 0:
-                data['errors'] = 'AttributeError - no such user with this login-password.'
+        user = User.objects.all().filter(Login=login, Password=password).first()
+
+        if user is None:
+            data = {'error': 'AttributeError - no user found with this login-password'}
             data = json.dumps(data)
-
-        return HttpResponse(data, content_type='application/json', status=200)
+            return self.create_response(request, data)
+        else:
+            data = model_to_dict(user)
+            data = json.dumps(data, default=str)
+            return self.create_response(request, data)
 
     class Meta:
         queryset = User.objects.all()
-        resource_name = 'users/auth'
-        excludes = ['Password']
+        resource_name = 'user/auth'
         allowed_methods = ['post']
-        filtering = {
-            'Login' : ALL,
-            'Password' : ALL
-        }
         authorization = Authorization()
 
 class PortfolioByIdResource(ModelResource):
