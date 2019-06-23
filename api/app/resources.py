@@ -1,6 +1,7 @@
 from tastypie.resources import ModelResource, ALL
 from tastypie.authorization import Authorization
 from django.forms.models import model_to_dict
+from tastypie import fields
 from datetime import date
 
 
@@ -54,10 +55,15 @@ class PortfolioByIdResource(ModelResource):
 
 
 class GoalByIdResource(ModelResource):
+    UserID = fields.ForeignKey(UserByIdResource, attribute="UserID")
+
     class Meta:
         queryset = Goal.objects.all()
         resource_name = 'goals'
         allowed_methods = ['get', 'post', 'put']
+        filtering = {
+            'UserID' : ALL
+        }
         authorization = Authorization()
 
 class AppointementsByUserIdResource(ModelResource):
