@@ -15,13 +15,10 @@ class UserByIdResource(ModelResource):
     class Meta:
         queryset = User.objects.all()
         resource_name = 'users'
+        excludes = ['Password']
         allowed_methods = ['get', 'post', 'put']
         authorization = Authorization()
 
-
-        def hydrate(self, bundle):
-            bundle.request.data['RegistrationDate'] = '{0}-{1}-{2}'.format(date.today().year, date.today().month, date.today().day)
-            return bundle
 
 class UserAuth(ModelResource):
     def post_list(self, request, **kwargs):
