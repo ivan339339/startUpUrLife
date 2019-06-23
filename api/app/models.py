@@ -7,7 +7,7 @@ class User(models.Model):
     FullName = models.TextField()
     Password = models.CharField(max_length=30)
     RegistrationDate = models.DateField()
-    Adress = models.TextField()
+    Address = models.TextField()
     Residence = models.TextField()
     CVID = models.PositiveIntegerField(null=True)
     PortfolioID = models.PositiveIntegerField(null=True)
