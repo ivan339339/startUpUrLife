@@ -47,10 +47,15 @@ class UserAuth(ModelResource):
         authorization = Authorization()
 
 class PortfolioByIdResource(ModelResource):
+    UserID = fields.ForeignKey(UserByIdResource, attribute="UserID")
+
     class Meta:
         queryset = Portfolio.objects.all()
         resource_name = 'portfolio'
         allowed_methods = ['get', 'put', 'post']
+        filtering = {
+            'UserID': ALL
+        }
         authorization = Authorization()
 
 
