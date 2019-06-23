@@ -67,8 +67,13 @@ class GoalByIdResource(ModelResource):
         authorization = Authorization()
 
 class AppointementsByUserIdResource(ModelResource):
+    UserID = fields.ForeignKey(UserByIdResource, attribute="UserID")
+
     class Meta:
         queryset = Appointement.objects.all()
         resource_name = 'appointments'
         allowed_methods = ['get', 'post', 'put']
+        filtering = {
+            'UserID': ALL
+        }
         authorization = Authorization()
