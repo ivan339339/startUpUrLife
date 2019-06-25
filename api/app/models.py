@@ -29,8 +29,7 @@ class Appointement(models.Model):
 
 class Portfolio(models.Model):
     PortfolioID = models.AutoField(primary_key=True)
-    Subjects = models.TextField()
-    FilledSubjects = models.PositiveIntegerField(default=3)
+    Data = models.TextField()
     UserID = models.ForeignKey(User, default=1, on_delete=models.CASCADE)
 
 class Goal(models.Model):
