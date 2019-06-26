@@ -21,6 +21,7 @@ class CVID(models.Model):
 
 class Appointement(models.Model):
     AppointementID = models.AutoField(primary_key=True)
+    Title = models.TextField()
     Time = models.DateTimeField()
     Place = models.TextField()
     Comment = models.TextField()
@@ -34,6 +35,7 @@ class Portfolio(models.Model):
 
 class Goal(models.Model):
     GoalID = models.AutoField(primary_key=True)
+    Title = models.TextField()
     Deadline = models.DateField()
     Description = models.TextField()
     Status = models.TextField()
