@@ -1,6 +1,9 @@
-from tastypie.resources import ModelResource, ALL
+from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
 from tastypie.authorization import Authorization
 from django.forms.models import model_to_dict
+from django.http import HttpResponse
+from app.utils import generateHtml
+import pdfkit
 from tastypie import fields
 from datetime import date
 
@@ -49,7 +52,7 @@ class PortfolioByIdResource(ModelResource):
 
     class Meta:
         queryset = Portfolio.objects.all()
-        resource_name = 'portfolio'
+        resource_name = 'portfolios'
         allowed_methods = ['get', 'put', 'post']
         filtering = {
             'UserID': ALL
@@ -76,6 +79,37 @@ class AppointementsByUserIdResource(ModelResource):
         queryset = Appointement.objects.all()
         resource_name = 'appointments'
         allowed_methods = ['get', 'post', 'put']
+        filtering = {
+            'UserID': ALL
+        }
+        authorization = Authorization()
+
+class PortfolioInPdf(ModelResource):
+    def create_response(self, bundle, data, response_class=HttpResponse, **kwargs):
+        bn = super(PortfolioInPdf, self).create_response(bundle, data, response_class, **kwargs)
+        id = bundle.GET['UserID']
+        user = User.objects.all().filter(UserID=id).first()
+        portfolio = Portfolio.objects.all().filter(UserID=id).first()
+
+        if len(portfolio.Data) != 0:
+            portfolio = json.loads(portfolio.Data)
+        else:
+            portfolio = {}
+
+        html = generateHtml(user, portfolio)
+
+        pdf = pdfkit.from_string(html, False)
+
+        filename = "sample_pdf.pdf"
+
+        response = HttpResponse(pdf, content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="' + filename + '"'
+        return response
+
+    class Meta:
+        queryset = Portfolio.objects.all()
+        resource_name = 'portfolio/download'
+        allowed_methods = ['get']
         filtering = {
             'UserID': ALL
         }

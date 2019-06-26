@@ -25,6 +25,7 @@ v1_api.register(PortfolioByIdResource())
 v1_api.register(GoalByIdResource())
 v1_api.register(AppointementsByUserIdResource())
 v1_api.register(UserAuth())
+v1_api.register(PortfolioInPdf())
 
 urlpatterns = [
     path('admin/', admin.site.urls),
