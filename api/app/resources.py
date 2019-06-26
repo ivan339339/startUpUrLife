@@ -14,6 +14,10 @@ class UserByIdResource(ModelResource):
     def obj_create(self, bundle, request=None, **kwargs):
         bundle.data['RegistrationDate'] = '{0}-{1}-{2}'.format(date.today().year, date.today().month, date.today().day)
         bundle = super(UserByIdResource, self).obj_create(bundle)
+
+        id = bundle.obj
+        Portfolio.objects.create(UserID=id, Data='')
+
         return bundle
 
     class Meta:
@@ -86,7 +90,7 @@ class AppointementsByUserIdResource(ModelResource):
 
 class PortfolioInPdf(ModelResource):
     def create_response(self, bundle, data, response_class=HttpResponse, **kwargs):
-        bn = super(PortfolioInPdf, self).create_response(bundle, data, response_class, **kwargs)
+        super(PortfolioInPdf, self).create_response(bundle, data, response_class, **kwargs)
         id = bundle.GET['UserID']
         user = User.objects.all().filter(UserID=id).first()
         portfolio = Portfolio.objects.all().filter(UserID=id).first()
