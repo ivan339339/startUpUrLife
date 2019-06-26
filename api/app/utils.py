@@ -31,6 +31,8 @@ def generateHtml(user, parsed):
     
     <div id="page-wrap">
     
+    <dd class="clear"></dd>
+    
     <h1 class='fn'>{{ FullName }}</h1>
     
     <div id="objective">
@@ -70,7 +72,6 @@ def generateHtml(user, parsed):
     context = Context({"FullName": user.FullName,
                     "BirthDate": user.BirthDate,
                     "Residence": user.Residence,
-                    "Address": user.Address,
-                    "PortfolioTemplate": portfolioTemplate})
+                    "Address": user.Address})
 
     return ans.render(context)
