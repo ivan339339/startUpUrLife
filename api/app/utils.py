@@ -1,6 +1,11 @@
 from django.template import Template, Context
 
 def generateHtml(user, parsed):
+    portfolioTemplate = ''
+    for key in parsed:
+        portfolioTemplate += '''<h2>''' + key + '''</h2>\n'''
+        portfolioTemplate += '''<p>''' + parsed[key] + '''</p>\n'''
+        
     mainTemplate='''
     <html>
     
@@ -39,7 +44,7 @@ def generateHtml(user, parsed):
     
             <dt>Portfolio</dt>
             <dd>
-                    {{ PortfolioTemplate }}
+                    ''' + portfolioTemplate + '''
             </dd>
             
             <dd class="clear"></dd>
@@ -60,11 +65,7 @@ def generateHtml(user, parsed):
     </div>
     </body>
     </html> '''    
-    
-    portfolioTemplate = ''
-    for key in parsed:
-        portfolioTemplate += '''<h2>''' + key + '''</h2>\n'''
-        portfolioTemplate += '''<p>''' + parsed[key] + '''</p>\n'''
+
     ans = Template(mainTemplate)
     context = Context({"FullName": user.FullName,
                     "BirthDate": user.BirthDate,
