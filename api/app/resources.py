@@ -22,6 +22,7 @@ class UserByIdResource(ModelResource):
 
     class Meta:
         queryset = User.objects.all()
+        always_return_data = True
         resource_name = 'users'
         excludes = ['Password']
         allowed_methods = ['get', 'post', 'put']
