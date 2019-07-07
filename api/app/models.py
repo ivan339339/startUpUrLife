@@ -9,9 +9,7 @@ class User(models.Model):
     Address = models.TextField()
     BirthDate = models.DateField(null=True)
     Residence = models.TextField()
-    CVID = models.PositiveIntegerField(null=True)
     PortfolioID = models.PositiveIntegerField(null=True)
-    IsAdmin = models.BooleanField(default=False)
 
 class Appointement(models.Model):
     AppointementID = models.AutoField(primary_key=True)
