@@ -94,19 +94,20 @@ class PortfolioInPdf(ModelResource):
     def create_response(self, bundle, data, response_class=HttpResponse, **kwargs):
         super(PortfolioInPdf, self).create_response(bundle, data, response_class, **kwargs)
         id = bundle.GET['UserID']
+        style = bundle.GET['Style']
         user = User.objects.all().filter(UserID=id).first()
-        portfolio = Portfolio.objects.all().filter(UserID=id).first()
+        portfolios = Portfolio.objects.all().filter(UserID=id).all()
 
-        if len(portfolio.Data) != 0:
-            portfolio = json.loads(portfolio.Data)
-        else:
-            portfolio = {}
+        portfolio = {}
 
-        html = generateHtml(user, portfolio)
+        for p in portfolios:
+            portfolio[p.Title] = p.Text
+
+        html = generateHtml(user, portfolio, style)
 
         pdf = pdfkit.from_string(html, False)
 
-        filename = "sample_pdf.pdf"
+        filename = "cv.pdf"
 
         response = HttpResponse(pdf, content_type='application/pdf')
         response['Content-Disposition'] = 'attachment; filename="' + filename + '"'
