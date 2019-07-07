@@ -125,5 +125,5 @@ class HelpResource(ModelResource):
     class Meta:
         queryset = Help.objects.all()
         resource_name = 'help'
-        allowed_methods = ['post']
+        allowed_methods = ['post','get']
         authorization = Authorization()
