@@ -17,7 +17,7 @@ class UserByIdResource(ModelResource):
         bundle = super(UserByIdResource, self).obj_create(bundle)
 
         id = bundle.obj
-        Portfolio.objects.create(UserID=id, Data='')
+        Portfolio.objects.create(UserID=id, Title='', Text='')
 
         return bundle
 
