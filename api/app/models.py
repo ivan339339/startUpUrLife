@@ -1,5 +1,4 @@
 from django.db import models
-import json
 
 class User(models.Model):
     UserID = models.AutoField(primary_key=True)
@@ -14,23 +13,19 @@ class User(models.Model):
     PortfolioID = models.PositiveIntegerField(null=True)
     IsAdmin = models.BooleanField(default=False)
 
-class CVID(models.Model):
-    CVID = models.AutoField(primary_key=True)
-    ## Other
-    UserID = models.ForeignKey(User, on_delete=models.CASCADE)
-
 class Appointement(models.Model):
     AppointementID = models.AutoField(primary_key=True)
     Title = models.TextField()
     Time = models.DateTimeField()
     Place = models.TextField()
     Comment = models.TextField()
-    Status = models.TextField() ## Gonna be something else I suppose
+    Status = models.TextField()
     UserID = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class Portfolio(models.Model):
     PortfolioID = models.AutoField(primary_key=True)
-    Data = models.TextField()
+    Title = models.TextField(null=True)
+    Text = models.TextField(null=True)
     UserID = models.ForeignKey(User, default=1, on_delete=models.CASCADE)
 
 class Goal(models.Model):
@@ -41,20 +36,10 @@ class Goal(models.Model):
     Status = models.TextField()
     UserID = models.ForeignKey(User, default=1, on_delete=models.CASCADE)
 
-class QuestionTip(models.Model):
-    QuestionID = models.AutoField(primary_key=True)
-    Text = models.TextField()
-    IsAnonymous = models.BinaryField()
-    Status = models.TextField()
-    Time = models.DateTimeField()
-    UserID = models.ForeignKey(User, default=1, on_delete=models.CASCADE)
-
-class Answer(models.Model):
-    AnswerID = models.AutoField(primary_key=True)
-    Text = models.TextField()
-    Status = models.TextField()
-    Time = models.DateTimeField()
-    QuestionID = models.ForeignKey(QuestionTip, default=1, on_delete=models.CASCADE)
+class Help(models.Model):
+    HelpID = models.AutoField(primary_key=True)
+    Email = models.TextField()
+    Question = models.TextField()
     UserID = models.ForeignKey(User, default=1, on_delete=models.CASCADE)
 
 class Faq(models.Model):

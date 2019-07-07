@@ -6,6 +6,7 @@ from app.utils import generateHtml
 import pdfkit
 from tastypie import fields
 from datetime import date
+import json
 
 
 from app.models import *
@@ -118,4 +119,11 @@ class PortfolioInPdf(ModelResource):
         filtering = {
             'UserID': ALL
         }
+        authorization = Authorization()
+
+class HelpResource(ModelResource):
+    class Meta:
+        queryset = Help.objects.all()
+        resource_name = 'help'
+        allowed_methods = ['post']
         authorization = Authorization()
