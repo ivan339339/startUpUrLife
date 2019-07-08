@@ -11,6 +11,9 @@ class User(models.Model):
     Residence = models.TextField()
     PortfolioID = models.PositiveIntegerField(null=True)
 
+    def __str__(self):
+        return str(self.FullName)
+
 class Appointement(models.Model):
     AppointementID = models.AutoField(primary_key=True)
     Title = models.TextField()
@@ -19,6 +22,10 @@ class Appointement(models.Model):
     Comment = models.TextField()
     Status = models.TextField()
     UserID = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        user = User.objects.all().filter(UserID=self.UserID.UserID).first()
+        return str(self.Title) + ', ' + str(user)
 
 class Portfolio(models.Model):
     PortfolioID = models.AutoField(primary_key=True)
@@ -34,11 +41,18 @@ class Goal(models.Model):
     Status = models.TextField()
     UserID = models.ForeignKey(User, default=1, on_delete=models.CASCADE)
 
+    def __str__(self):
+        user = User.objects.all().filter(UserID=self.UserID.UserID).first()
+        return str(self.Title) + ", " + str(user)
+
 class Help(models.Model):
     HelpID = models.AutoField(primary_key=True)
     Email = models.TextField()
     Question = models.TextField()
     UserID = models.ForeignKey(User, default=1, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.Question)
 
 class Faq(models.Model):
     QandAID = models.AutoField(primary_key=True)
